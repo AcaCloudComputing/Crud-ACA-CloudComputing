@@ -11,7 +11,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@Shared/shared-module/shared-module.module';
-import { environment } from '../environments/environments';
+import { environment } from '../environments/environment';
 import { TableComponent } from './@Shared/table/table.component';
 
 @NgModule({
