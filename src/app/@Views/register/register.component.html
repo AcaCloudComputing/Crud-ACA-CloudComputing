@@ -1,0 +1,82 @@
+<section class="bg-gray-100">
+    <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
+      <section
+        class="flex items-end lg:col-span-5 lg:h-full xl:col-span-6 p-8 bg-[#1F3A5D] text-white"
+      >
+        <div>
+          <a href="#" class="block text-white text-lg font-bold">Crud</a>
+          <h2 class="mt-6 text-3xl font-bold">¡Bienvenido!</h2>
+          <p class="mt-4">
+            Accede a tu cuenta o regístrate para comenzar.
+          </p>
+        </div>
+      </section>
+  
+      <main
+        class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6"
+      >
+        <div class="max-w-xl w-full">
+          <h2 class="text-2xl font-bold text-gray-800">Registrate</h2>
+          <form
+            class="mt-8 space-y-6"
+            [formGroup]="registerForm"
+            (ngSubmit)="onSubmit()"
+          >
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700"
+                >Correo Electrónico</label
+              >
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                required
+                class="w-full p-3 mt-1 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+              />
+            </div>
+            <div>
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-700"
+                >Contraseña</label
+              >
+              <input
+                type="password"
+                id="password"
+                formControlName="password"
+                required
+                class="w-full p-3 mt-1 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+              />
+            </div>
+            <button
+              type="submit"
+              [disabled]="registerForm.invalid"
+              class="w-full py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
+            >
+              Registrarsea
+            </button>
+  
+            <p class="mt-4 text-sm text-gray-600">
+              ¿Ya tienes una cuenta?
+              <a
+                [routerLink]="['/login']"
+                class="text-blue-600 hover:underline"
+                >Inicia sesión</a
+              >
+            </p>
+          </form>
+        </div>
+      </main>
+    </div>
+  
+    <app-modal
+      *ngIf="openErrorModal"
+      [open]="openErrorModal"
+      [modalTitle]="'Error de inicio de sesión'"
+      [modalMessage]="errorMessage"
+      [modalType]="'error'"
+      (closeModal)="closeErrorModal()"
+    >
+    </app-modal>
+  </section>
+  

@@ -1,0 +1,76 @@
+<app-header></app-header>
+
+<div class="overflow-x-auto p-4">
+  <button (click)="openFormModal()" class="mb-4 px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+    Add New Post
+  </button>
+
+  <table class="min-w-full text-left text-sm border-collapse rounded-lg overflow-hidden shadow-lg">
+    <thead class="bg-gray-800 text-white">
+      <tr>
+        <th class="px-6 py-3">#</th>
+        <th class="px-6 py-3">Titulo</th>
+        <th class="px-6 py-3">Contenido</th>
+        <th class="px-6 py-3">Autor</th>
+        <th class="px-6 py-3">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let post of posts; let i = index" class="odd:bg-gray-100 even:bg-white hover:bg-gray-200">
+        <th class="px-6 py-4 font-medium">{{ i + 1 }}</th>
+        <td class="px-6 py-4">{{ post.tittle }}</td>
+        <td class="px-6 py-4">{{ post.content }}</td>
+        <td class="px-6 py-4">{{ post.author }}</td>
+        <td class="px-6 py-4">
+          <button (click)="router.navigate(['/edit-post', post.id])" class="text-blue-600 hover:text-blue-800 font-medium mr-4">
+            ✏️ Editar
+          </button>
+          <button (click)="deletePost(post.id)" class="text-red-600 hover:text-red-800 font-medium">
+            🗑️Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="fixed inset-0 z-10 overflow-y-auto" *ngIf="open">
+  <div class="fixed inset-0 w-full h-full bg-black bg-opacity-40" (click)="close()"></div>
+
+  <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg mx-auto px-4">
+    <div class="bg-white rounded-md shadow-lg px-4 py-6">
+      <div class="flex items-center justify-end">
+        <button (click)="close()" class="p-2 text-gray-400 rounded-md hover:bg-gray-100">
+          ✖️
+        </button>
+      </div>
+
+      <div class="text-center">
+        <h2 class="text-lg font-medium text-gray-800">{{ modalTitle }}</h2>
+        <p class="text-sm text-gray-600 mt-2">{{ modalMessage }}</p>
+
+        <div *ngIf="isFormModal">
+          <form (ngSubmit)="addPost()">
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-600">Titulo</label>
+              <input type="text" [(ngModel)]="newPost.tittle" name="tittle" required class="mt-2 p-2 w-full border rounded-md"/>
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-600">Contenido</label>
+              <textarea [(ngModel)]="newPost.content" name="content" required class="mt-2 p-2 w-full border rounded-md"></textarea>
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-600">Autor</label>
+              <input type="text" [(ngModel)]="newPost.author" name="author" required class="mt-2 p-2 w-full border rounded-md"/>
+            </div>
+            <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded-lg">Agregar</button>
+          </form>
+        </div>
+
+        <div *ngIf="!isFormModal" class="flex gap-4 justify-center mt-4">
+          <button (click)="close()" class="w-32 py-2 px-4 bg-blue-600 text-white rounded-lg">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
